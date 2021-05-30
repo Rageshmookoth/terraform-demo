@@ -33,7 +33,7 @@ pipeline {
     stages {
         stage('Git Checkout'){
                 steps{
-                   git credentialsId: 'GITHUB-RAGEH', url: 'https://github.com/Rageshmookoth/iac-demo'
+                   git credentialsId: 'GITHUB-RAGEH', url: 'https://github.com/Rageshmookoth/terraform-demo.git'
                 }
             }
         stage('Plan') {
