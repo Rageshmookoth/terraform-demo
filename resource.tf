@@ -1,5 +1,5 @@
 resource "aws_instance" "Ragesh" {
-ami = var.ami
+ami = var.ami[var.region]
 instance_type = var.instance_type
 key_name = "POC-STD-KEY-PAIR"
 tags = {
