@@ -18,9 +18,17 @@ variable "region" {
 description = "AWS Region the infrastructure is hosted in"
 default = "us-east-1"
 }
+
+# Map of Linux2 AMI ID / region
 variable "ami" {
-description = "AMI Image"
-default = "ami-045e6fa7127ab1ac4"
+  type        = map
+  description = "The id of the machine image (AMI) to use for the server."
+
+  default = {
+    us-east-1      = "ami-0affd4508a5d2481b"
+    ap-south-1     = "ami-045e6fa7127ab1ac4"
+    eu-central-1   = "ami-0e8286b71b81c3cc1"
+   }
 }
 variable "cloudprovider" {
 description = "Select the Cloud Provider"
