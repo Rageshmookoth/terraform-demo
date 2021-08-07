@@ -25,9 +25,9 @@ variable "ami" {
   description = "The id of the machine image (AMI) to use for the server."
 
   default = {
-    us-east-1      = "ami-0affd4508a5d2481b"
+    us-west-1      = "ami-04b6c97b14c54de18"
     ap-south-1     = "ami-04db49c0fb2215364"
-    eu-central-1   = "ami-0e8286b71b81c3cc1"
+    eu-central-1   = "ami-0453cb7b5f2b7fca2"
    }
 }
 variable "cloudprovider" {
