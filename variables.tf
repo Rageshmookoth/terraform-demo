@@ -26,7 +26,7 @@ variable "ami" {
 
   default = {
     us-east-1      = "ami-0affd4508a5d2481b"
-    ap-south-1     = "ami-026f33d38b6410e30"
+    ap-south-1     = "ami-02fa991c030bdd335"
     eu-central-1   = "ami-0e8286b71b81c3cc1"
    }
 }
