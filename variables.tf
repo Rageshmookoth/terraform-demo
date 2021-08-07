@@ -46,7 +46,7 @@ variable "private_key" {
   default = "POC-STD-KEY-PAIR.pem"
 }
 variable "ansible_user" {
-  default = "centos"
+  default = "ec2-user"
 }
 variable "Group" {
 description = "Group Tag"
