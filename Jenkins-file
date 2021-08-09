@@ -8,7 +8,7 @@ pipeline {
         //string(name: 'version', defaultValue: '', description: 'Version variable to pass to Terraform')
         //choice choices: ['AWS', 'AZURE', 'OracleCloud'], description: '''Select the cloud platform
         //''', name: 'Cloud'
-        choice choices: ['us-east-1', 'ap-south-1', 'eu-central-1'], description: '''Select the region
+        choice choices: ['us-west-1', 'ap-south-1', 'eu-central-1'], description: '''Select the region
         ''', name: 'Region'
         choice choices: ['Ragesh', 'Moiz', 'Sourabh','Ramesh'], description: '''Server owner
         ''', name: 'Owner'
