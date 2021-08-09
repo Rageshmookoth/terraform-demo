@@ -72,6 +72,8 @@ pipeline {
         stage('Remove State file') {
             steps {
                 sh "rm -fr terraform.tfstate"
+                sh "rm -fr .terraform.lock.hcl"
+                sh "rm -fr terraform.tfstate.backup"
             }
         }
          
