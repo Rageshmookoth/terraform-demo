@@ -25,14 +25,14 @@ pipeline {
 
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
     }
-    node {
-    stage('Example') {
-        if (params.account == 'Production') {
-            echo 'I only execute on the master branch'
-        } else {
-            echo 'I execute elsewhere'
+    stages {
+        stage('Example') {
+            if (params.account == 'Production') {
+                echo 'I only execute on the master branch'
+            } else {
+                echo 'I execute elsewhere'
+            }
         }
-    }
    }
     
     environment {
