@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         stage ('Example') {
-            step {
+            steps {
                 script {
                     if (params.account == 'Production') {
                         echo 'I only execute on the master branch'
