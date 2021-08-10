@@ -102,7 +102,7 @@ pipeline {
         }
         stage('Apply - Production') {
             when {
-                        expression { params.account == 'Development' }
+                        expression { params.account == 'Production' }
                     }
                environment {
                      AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
