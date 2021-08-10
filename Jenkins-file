@@ -32,24 +32,30 @@ pipeline {
                    git credentialsId: 'GITHUB-RAGEH', url: 'https://github.com/Rageshmookoth/terraform-demo.git'
                 }
             }
-
-        stage ('Production Account') {
-                when {
-                        expression { params.account == 'Production' }
-                    }
-               environment {
-                     AWS_ACCESS_KEY_ID     = credentials('AWS-ACCESS-KEY-ID')
-                     AWS_SECRET_ACCESS_KEY = credentials('AWS-SECRET-KEY')
-               }
-                steps {
-                        echo "Hello, bitwiseman!"
-                    }
-                }
-   
-        stage('Plan') {
+     
+        stage('Plan Production') {
             
             when {
                         expression { params.account == 'Production' }
+                    }
+               environment {
+                     AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
+                     AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
+               }
+            steps {
+                //script {
+                //    currentBuild.displayName = params.version
+                //}
+                sh 'terraform init -input=false'
+                //sh 'terraform workspace select ${environment}'
+                sh "terraform plan -input=false -out tfplan -var 'region=${params.Region}' -var 'instance_type=${params.Configuration}' -var 'instance_name=${params.ServerName}' -var 'Group=${params.Group}' -var 'Owner=${params.Owner}' -var 'Project=${params.Project}'"
+                sh 'terraform show -no-color tfplan > tfplan.txt'
+            }
+        }
+        stage('Plan Development') {
+            
+            when {
+                        expression { params.account == 'Development' }
                     }
                environment {
                      AWS_ACCESS_KEY_ID     = credentials('AWS-ACCESS-KEY-ID')
