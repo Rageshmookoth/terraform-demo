@@ -25,7 +25,7 @@ pipeline {
 
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
     }
-    stage('Example') {
+    stage ('Example') {
             step {
                 script {
                     if (params.account == 'Production') {
