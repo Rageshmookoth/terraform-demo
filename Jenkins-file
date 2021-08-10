@@ -43,12 +43,14 @@ pipeline {
             steps {
                 script {
                     if (params.account == 'Production') {
-                        echo 'I only execute on the master branch'
-                        env.AWS_ACCESS_KEY_ID = credentials('PROD-AWS-ACCESS-KEY-ID')
-                        env.AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
-                    } else {
+                        environment {
+                            AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
+                            AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
+                   } else {
                         echo 'I execute elsewhere'
-
+                        environment {
+                            AWS_ACCESS_KEY_ID     = credentials('AWS-ACCESS-KEY-ID')
+                            AWS_SECRET_ACCESS_KEY = credentials('AWS-SECRET-KEY')
                    }
                }
             }
