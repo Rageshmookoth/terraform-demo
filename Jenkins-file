@@ -27,11 +27,7 @@ pipeline {
     }
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('AWS-ACCESS-KEY-ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS-SECRET-KEY')
-        PROD_AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
-        PROD_AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
-        TF_IN_AUTOMATION      = '1'
+         TF_IN_AUTOMATION      = '1'
     }
     stages {
         stage('Git Checkout'){
