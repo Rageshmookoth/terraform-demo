@@ -8,6 +8,8 @@ pipeline {
         //string(name: 'version', defaultValue: '', description: 'Version variable to pass to Terraform')
         //choice choices: ['AWS', 'AZURE', 'OracleCloud'], description: '''Select the cloud platform
         //''', name: 'Cloud'
+        choice choices: ['Production', 'Development'], description: '''Select the AWS account
+        ''', name: 'account'
         choice choices: ['us-west-1', 'ap-south-1', 'eu-central-1'], description: '''Select the region
         ''', name: 'Region'
         choice choices: ['Ragesh', 'Moiz', 'Sourabh','Ramesh'], description: '''Server owner
@@ -30,12 +32,51 @@ pipeline {
         TF_IN_AUTOMATION      = '1'
     }
 
+stage ('Test 3: Master') {
+    when { branch 'master' }
+    steps { 
+        echo 'I only execute on the master branch.' 
+    }
+}
+
+stage ('Test 3: Dev') {
+    when { not { branch 'master' } }
+    steps {
+        echo 'I execute on non-master branches.'
+    }
+}
+
+
     stages {
         stage('Git Checkout'){
                 steps{
                    git credentialsId: 'GITHUB-RAGEH', url: 'https://github.com/Rageshmookoth/terraform-demo.git'
                 }
             }
+        stage('AWS account check - Production'){
+            when {params.account 'Production' }
+            steps {
+                echo 'Apply production credentials'
+            environment {
+                AWS_ACCESS_KEY_ID     = credentials('AWS-ACCESS-KEY-ID')
+                AWS_SECRET_ACCESS_KEY = credentials('AWS-SECRET-KEY')
+                TF_IN_AUTOMATION      = '1'
+             }
+            }
+
+        }
+        stage ('AWS account check - Development'){
+            when {not { params.account 'Production'}} 
+            steps {
+                echo 'Apply Development credentials'
+            environment {
+                AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
+                AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
+                TF_IN_AUTOMATION      = '1'
+             }
+            }
+        }
+        stage ('')
         stage('Plan') {
             steps {
                 //script {
