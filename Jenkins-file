@@ -26,14 +26,6 @@ pipeline {
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
     }
     
-    environment {
-           AWS_ACCESS_KEY_ID     = credentials('AWS-ACCESS-KEY-ID')
-           AWS_SECRET_ACCESS_KEY = credentials('AWS-SECRET-KEY')
-           PROD_AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
-           PROD_AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
-
-         TF_IN_AUTOMATION      = '1'
-    }
     stages {
         stage('Git Checkout'){
                 steps{
@@ -45,8 +37,10 @@ pipeline {
                 when {
                         expression { params.account == 'Production' }
                     }
-                withEnv(["AWS_ACCESS_KEY_ID=${env.PROD_AWS_ACCESS_KEY_ID}"]) {echo 'Production key id assigned' }
-                withEnv(["AWS_SECRET_ACCESS_KEY=${env.PROD_AWS_SECRET_ACCESS_KEY} "]) {echo 'Production key  assigned' }
+               environment {
+                     AWS_ACCESS_KEY_ID     = credentials('AWS-ACCESS-KEY-ID')
+                     AWS_SECRET_ACCESS_KEY = credentials('AWS-SECRET-KEY')
+               }
                 steps {
                         echo "Hello, bitwiseman!"
                     }
