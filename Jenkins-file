@@ -43,6 +43,7 @@ pipeline {
             steps {
                 script {
                     if (params.account == 'Production') {
+                        echo 'I execute production'
                         environment {
                             AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
                             AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
