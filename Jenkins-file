@@ -31,22 +31,6 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS-SECRET-KEY')
         TF_IN_AUTOMATION      = '1'
     }
-
-stage ('Test 3: Master') {
-    when { branch 'master' }
-    steps { 
-        echo 'I only execute on the master branch.' 
-    }
-}
-
-stage ('Test 3: Dev') {
-    when { not { branch 'master' } }
-    steps {
-        echo 'I execute on non-master branches.'
-    }
-}
-
-
     stages {
         stage('Git Checkout'){
                 steps{
