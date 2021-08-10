@@ -35,20 +35,21 @@ pipeline {
                    git credentialsId: 'GITHUB-RAGEH', url: 'https://github.com/Rageshmookoth/terraform-demo.git'
                 }
             }
-        stages {
-                stage ('Production Account') {
-                    when {
+
+        stage ('Production Account') {
+                when {
                         expression { params.account == 'Production' }
                     }
-                    environment {
-                                    AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
-                                    AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
-                    steps {
+                environment {
+                        AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
+                        AWS_SECRET_ACCESS_KEY = credentials('PROD-AWS-SECRET-KEY')
+                    }
+                 steps {
                         echo "Hello, bitwiseman!"
                     }
                 }
-            }
-        }
+    
+
         stage('Plan') {
             steps {
                 //script {
