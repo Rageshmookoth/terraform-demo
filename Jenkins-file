@@ -1,3 +1,53 @@
+#!/usr/bin/env groovy
+// Define variables
+List cloud_list = ["\"Select:selected\"","\"AWS\"","\"Oracle-Cloud\"","\"Azure\""]
+List AWS_list = ["\"Select:selected\"","\"t2.micro\"","\"t2.small\"","\"t2.medium\""]
+List OCI_list = ["\"Select:selected\"","\"VM.Standard.E3.Flex\"","\"VM.Standard.E4.Flex\"","\"VM.Optimized3.Flex\""]
+List AZURE_list = ["\"Select:selected\"","\"B1LS\"","\"B1S\"","\"B1MS\""]
+List default_item = ["\"Not Applicable\""]
+String categories = buildScript(cloud_list)
+String AWS = buildScript(AWS_list)
+String Oracle-Cloud = buildScript(OCI_list)
+String Azure = buildScript(AZURE_list)
+String items = populateItems(default_item,AWS_list,OCI_list,AZURE_list)
+// Methods to build groovy scripts to populate data
+String buildScript(List values){
+  return "return $values"
+}
+String populateItems(List default_item, List AWS_list, List OCI_list, list AZURE_list ){
+return """if(Categories.equals('AWS')){
+     return $AWS_list
+     }
+     else if(Categories.equals('Oracle-Cloud')){
+     return $OCI_list
+     else if(Categories.equals('Azure')){
+     return $AZURE_list
+     }else{
+     return $default_item
+     }
+     """
+}
+// Properties step to set the Active choice parameters via 
+// Declarative Scripting
+properties([
+    parameters([
+        [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT',   name: 'Categories', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: 'return ["ERROR"]'], script: [classpath: [], sandbox: false,
+        script:  categories]]],
+[$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT',name: 'Items', referencedParameters: 'Categories', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: 'return ["error"]'], script: [classpath: [], sandbox: false, script: items]]]
+    ])
+])
+pipeline {
+    agent any
+stages {
+   stage('Build'){
+    steps {
+       echo 'Building..'
+      }
+    }
+   }
+}
+
+
 pipeline {
     agent any
     tools {
