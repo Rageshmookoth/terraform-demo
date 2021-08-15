@@ -3,23 +3,69 @@ pipeline {
     tools {
         terraform 'terraform-Rag'
     }
-    job('example') {
-    parameters {
-        activeChoiceParam('Owner') {
-            description('Select Server Owner')
-            filterable()
-            choiceType('SINGLE_SELECT')
-            groovyScript {
-                script('def choices=[] textFile= new File("Users") 
-                textFile.eachLine {
-                choices.add(it)
-                 }')
-            return choices')
-                fallbackScript('return ["error"]')
-            }
-        }
-    }
-   }
+properties([
+    parameters([
+        [$class: 'ChoiceParameter', 
+            choiceType: 'PT_SINGLE_SELECT', 
+            description: 'Select the Group Name from the Dropdown List', 
+            filterLength: 1, 
+            filterable: true, 
+            name: 'Group', 
+            randomName: 'choice-parameter-5631314439613978', 
+            script: [
+                $class: 'GroovyScript', 
+                fallbackScript: [
+                    classpath: [], 
+                    sandbox: false, 
+                    script: 
+                        'return[\'Could not get Group name from Active directory\']'
+                ], 
+                script: [
+                    classpath: [], 
+                    sandbox: false, 
+                    script: 
+                         ''' def choices=[]
+                            textFile= new File("Groups")
+                            textFile.eachLine{
+                            choices.add(it)
+                            }
+                             return choices
+                        '''
+                ]
+            ]
+        ], 
+        [$class: 'CascadeChoiceParameter', 
+            choiceType: 'PT_SINGLE_SELECT', 
+            description: 'Select the Server from the Dropdown List', 
+            filterLength: 1, 
+            filterable: true, 
+            name: 'Owner', 
+            randomName: 'choice-parameter-5631314456178619', 
+            referencedParameters: 'Group', 
+            script: [
+                $class: 'GroovyScript', 
+                fallbackScript: [
+                    classpath: [], 
+                    sandbox: false, 
+                    script: 
+                        'return[\'Could not get User name from Active directory\']'
+                ], 
+                script: [
+                    classpath: [], 
+                    sandbox: false, 
+                    script: 
+                        ''' def choices=[]
+                            textFile= new File("Users")
+                            textFile.eachLine{
+                            choices.add(it)
+                            }
+                             return choices
+                        '''
+                ]
+            ]
+        ]
+    ])
+])
     parameters {
         //string(name: 'environment', defaultValue: 'default', description: 'Workspace/environment file to use for deployment')
         //string(name: 'version', defaultValue: '', description: 'Version variable to pass to Terraform')
