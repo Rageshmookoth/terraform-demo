@@ -3,6 +3,24 @@ pipeline {
     tools {
         terraform 'terraform-Rag'
     }
+    job('example') {
+    parameters {
+        activeChoiceParam('Owner') {
+            description('Select Server Owner')
+            filterable()
+            choiceType('SINGLE_SELECT')
+            groovyScript {
+                script('def choices=[]
+textFile= new File("Users")
+textFile.eachLine{
+choices.add(it)
+}
+return choices')
+                fallbackScript('"fallback choice"')
+            }
+        }
+    }
+   }
     parameters {
         //string(name: 'environment', defaultValue: 'default', description: 'Workspace/environment file to use for deployment')
         //string(name: 'version', defaultValue: '', description: 'Version variable to pass to Terraform')
