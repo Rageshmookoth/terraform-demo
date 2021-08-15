@@ -14,7 +14,6 @@ pipeline {
         ''', name: 'Region'
         choice choices: ['Windows', 'Linux',], description: '''Select the Operating System
         ''', name: 'Os'
-
         //choice choices: ['Ragesh', 'Moiz', 'Sourabh','Ramesh'], description: '''Server owner
        // ''', name: 'Owner'
         //choice choices: ['DEV-GROUP', 'IT-GROUP','UK Support','US Support'], description: '''Server Group
