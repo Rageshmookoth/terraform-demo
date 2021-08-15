@@ -14,10 +14,10 @@ pipeline {
         ''', name: 'Region'
         choice choices: ['Windows', 'Linux',], description: '''Select the Operating System
         ''', name: 'Os'
-        choice choices: ['Ragesh', 'Moiz', 'Sourabh','Ramesh'], description: '''Server owner
-        ''', name: 'Owner'
-        choice choices: ['DEV-GROUP', 'IT-GROUP','UK Support','US Support'], description: '''Server Group
-        ''', name: 'Group'
+        //choice choices: ['Ragesh', 'Moiz', 'Sourabh','Ramesh'], description: '''Server owner
+       // ''', name: 'Owner'
+        //choice choices: ['DEV-GROUP', 'IT-GROUP','UK Support','US Support'], description: '''Server Group
+        //''', name: 'Group'
         string defaultValue: '', description: 'Project', name: 'Project', trim: false
         choice choices: ['t2.micro', 't2.small', 't2.medium'], description: '''Select the appropriate instance type. 
         For more information 
