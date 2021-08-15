@@ -3,7 +3,7 @@ pipeline {
     tools {
         terraform 'terraform-Rag'
     }
-properties([
+options([
     parameters([
         [$class: 'ChoiceParameter', 
             choiceType: 'PT_SINGLE_SELECT', 
