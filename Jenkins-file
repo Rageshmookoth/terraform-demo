@@ -9,7 +9,7 @@ pipeline {
         //choice choices: ['AWS', 'AZURE', 'OracleCloud'], description: '''Select the cloud platform
         //''', name: 'Cloud'
         choice choices: ['Production', 'Development'], description: '''Select the AWS account
-        ''', name: 'account'
+        ''', name: 'Account'
         choice choices: ['us-west-1', 'ap-south-1', 'eu-central-1'], description: '''Select the region
         ''', name: 'Region'
         choice choices: ['Windows', 'Linux',], description: '''Select the Operating System
