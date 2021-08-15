@@ -10,12 +10,11 @@ pipeline {
             filterable()
             choiceType('SINGLE_SELECT')
             groovyScript {
-                script('def choices=[]
-textFile= new File("Users")
-textFile.eachLine{
-choices.add(it)
-}
-return choices')
+                script('def choices=[] textFile= new File("Users") 
+                textFile.eachLine {
+                choices.add(it)
+                 }')
+            return choices')
                 fallbackScript('"fallback choice"')
             }
         }
