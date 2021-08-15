@@ -3,33 +3,6 @@ pipeline {
     tools {
         terraform 'terraform-Rag'
     }
-job("MyJob") {
-    description ("This job creates ....")
-    
-    //def targetEnvironment=""
-    
-
-    parameters {
-         activeChoiceParam('choice1') {
-                      description('select your choice')
-                      choiceType('RADIO')
-                      groovyScript {
-                          script('return["aaa","bbb"]')
-                          fallbackScript('return ["error"]')
-                      }
-        }
-        activeChoiceReactiveParam('choice2') {
-                      description('select your choice')
-                      choiceType('RADIO')
-                      groovyScript {
-                          script(' if(choice1.equals("aaa")) { return ["a", "b"] } else {return ["aaaaaa","fffffff"] } ')
-                          fallbackScript('return ["error"]')
-                      }
-                      referencedParameter('choice1')
-        }
-
-    }
-}
     parameters {
         //string(name: 'environment', defaultValue: 'default', description: 'Workspace/environment file to use for deployment')
         //string(name: 'version', defaultValue: '', description: 'Version variable to pass to Terraform')
@@ -53,6 +26,23 @@ job("MyJob") {
         string defaultValue: '', description: 'Input server Name', name: 'ServerName', trim: false
 
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
+        activeChoiceParam('choice1') {
+                      description('select your choice')
+                      choiceType('RADIO')
+                      groovyScript {
+                          script('return["aaa","bbb"]')
+                          fallbackScript('return ["error"]')
+                      }
+        }
+        activeChoiceReactiveParam('choice2') {
+                      description('select your choice')
+                      choiceType('RADIO')
+                      groovyScript {
+                          script(' if(choice1.equals("aaa")) { return ["a", "b"] } else {return ["aaaaaa","fffffff"] } ')
+                          fallbackScript('return ["error"]')
+                      }
+                      referencedParameter('choice1')
+        }
     }
     
     stages {
