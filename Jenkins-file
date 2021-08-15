@@ -1,3 +1,19 @@
+#!/usr/bin/env groovy
+String Users = Userslist(){
+    def choices=[]
+    textFile= new File("Users")
+    textFile.eachLine{
+    choices.add(it)
+    }
+return choices
+}
+properties([
+    parameters([
+        [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT',   name: 'Owner', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: 'return ["ERROR"]'], script: [classpath: [], sandbox: false,
+        script:  categories]]],
+        [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT',name: 'Owne', referencedParameters: 'Categories', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: 'return ["error"]'], script: [classpath: [], sandbox: false, script: Users]]]
+    ])
+])
 pipeline {
     agent any
     tools {
@@ -26,23 +42,7 @@ pipeline {
         string defaultValue: '', description: 'Input server Name', name: 'ServerName', trim: false
 
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
-        activeChoiceParam('choice1') {
-                      description('select your choice')
-                      choiceType('RADIO')
-                      groovyScript {
-                          script('return["aaa","bbb"]')
-                          fallbackScript('return ["error"]')
-                      }
-        }
-        activeChoiceReactiveParam('choice2') {
-                      description('select your choice')
-                      choiceType('RADIO')
-                      groovyScript {
-                          script(' if(choice1.equals("aaa")) { return ["a", "b"] } else {return ["aaaaaa","fffffff"] } ')
-                          fallbackScript('return ["error"]')
-                      }
-                      referencedParameter('choice1')
-        }
+        
     }
     
     stages {
