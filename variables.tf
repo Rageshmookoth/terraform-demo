@@ -30,6 +30,18 @@ variable "ami" {
     eu-central-1   = "ami-0453cb7b5f2b7fca2"
    }
 }
+## 
+# Map of Location Name / region
+variable "region" {
+  type        = map
+  description = "The id of the machine image (AMI) to use for the server."
+
+  default = {
+    California  = "us-west-1"
+    Mumbai     = "ap-south-1"
+    Frankfurt   = "eu-central-1"
+   }
+}
 variable "cloudprovider" {
 description = "Select the Cloud Provider"
 default = "AWS"
