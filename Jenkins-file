@@ -39,7 +39,7 @@ pipeline {
         stage('Plan Production') {
             
             when {
-                        expression { params.account == 'Production' }
+                        expression { params.Account == 'Production' }
                     }
                environment {
                      AWS_ACCESS_KEY_ID     = credentials('PROD-AWS-ACCESS-KEY-ID')
@@ -58,7 +58,7 @@ pipeline {
         stage('Plan Development') {
             
             when {
-                        expression { params.account == 'Development' }
+                        expression { params.Account == 'Development' }
                     }
                environment {
                      AWS_ACCESS_KEY_ID     = credentials('AWS-ACCESS-KEY-ID')
