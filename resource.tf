@@ -1,5 +1,5 @@
 resource "aws_instance" "Ragesh" {
-ami = var.ami[var.region]
+ami = var.winami[var.region]
 instance_type = var.instance_type
 key_name = "POC-STD-KEY-PAIR"
 tags = {
@@ -31,6 +31,15 @@ depends_on = [
   # using ansible, declarative approach of configuration management
   provisioner "local-exec" {
     command ="ansible-playbook -i inventory  playbook.yml --private-key=${var.private_key}  --user ${var.ansible_user}"
+  }
+}
+resource "null_resource" "Ansible-sethostname" {
+depends_on = [
+    null_resource.Ansible-play,
+  ]
+  # using ansible, declarative approach of configuration management
+  provisioner "local-exec" {
+    command ="ansible -i inventory -m  raw -s -a "hostnamectl set-hostname ${params.ServerName}""
   }
 }
 
