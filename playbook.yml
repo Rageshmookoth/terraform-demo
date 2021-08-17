@@ -11,6 +11,3 @@
     - name: Restart httpd
       service: name=httpd state=restarted
       become: yes
-- name: change hostname to myserver
-  hostname:
-    name: "webserver"
