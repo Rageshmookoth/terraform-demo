@@ -39,7 +39,7 @@ depends_on = [
   ]
   # using ansible, declarative approach of configuration management
   provisioner "local-exec" {
-    command ="ansible-playbook -i inventory  playbook.yml --private-key=${var.private_key}  --user ${var.ansible_user}"
+    command ="ansible-playbook -i inventory  hostname.yml --private-key=${var.private_key}  --user ${var.ansible_user}"
   }
 }
 
