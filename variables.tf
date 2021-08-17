@@ -30,6 +30,17 @@ variable "ami" {
     eu-central-1   = "ami-0453cb7b5f2b7fca2"
    }
 }
+# Map of Linux2 AMI ID / region
+variable "winami" {
+  type        = map
+  description = "The id of the machine image (AMI) to use for the server."
+
+  default = {
+    us-west-1      = "ami-04b6c97b14c54de18"
+    ap-south-1     = "ami-04db49c0fb2215364"
+    eu-central-1   = "ami-0453cb7b5f2b7fca2"
+   }
+}
 ## 
 variable "cloudprovider" {
 description = "Select the Cloud Provider"
