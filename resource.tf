@@ -39,7 +39,7 @@ depends_on = [
   ]
   # using ansible, declarative approach of configuration management
   provisioner "local-exec" {
-    command ="ansible -i inventory -m  raw -s -a "hostnamectl set-hostname ${var.instance_name}""
+    command ="ansible -i inventory -m  raw -s -a hostnamectl set-hostname ${var.instance_name}"
   }
 }
 
